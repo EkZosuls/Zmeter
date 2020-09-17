@@ -34,6 +34,29 @@
  *  This may result in accuracy issues when working with high resistance sources
  *  and resistance values (>100,000 ohms).
  *  
+ *  MIT License
+
+Copyright (c) 2020 Aleksandrs Zosuls
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+ *  
  */
 
  // this sets the average window length
@@ -109,7 +132,7 @@ if (controlFlag == 1) {  //run the VOltmeter
 
 if (controlFlag == 2) { //run the ohmMeter
 
-  collectPoints(sampleInterval, rInputPin, 0, ADCRaw);
+  collectPoints(sampleInterval, rInputPin, 'G', ADCRaw);
   myAverage = computeAvg(ADCRaw);
   voltage = myAverage * ADCconversion;
   ohms = SENSE_RES_OHMS/((SYSTEM_VOLTS / voltage) -1);
@@ -139,8 +162,14 @@ float computeAvg(int *myArrg)
   void collectPoints(int sampleInterval, int pinNumP, int pinNumN, int *myArrg)
   { // collect N points from 2 analog ins and take the difference.
     int i = 0;
-    while(i < AVG_WINDOW) {
-      myArrg[i] = analogRead(pinNumP) - analogRead(pinNumN);
+    while(i < AVG_WINDOW) r
+      if(pinNumN == 'G'){
+        myArrg[i] = analogRead(pinNumP);
+      }
+      else{
+        myArrg[i] = analogRead(pinNumP) - analogRead(pinNumN);
+      }
+      
       //i = (i + 1) % AVG_WINDOW;
       ++i;
       delay(sampleInterval);
