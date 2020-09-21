@@ -162,7 +162,7 @@ float computeAvg(int *myArrg)
   void collectPoints(int sampleInterval, int pinNumP, int pinNumN, int *myArrg)
   { // collect N points from 2 analog ins and take the difference.
     int i = 0;
-    while(i < AVG_WINDOW) r
+    while(i < AVG_WINDOW) {
       if(pinNumN == 'G'){
         myArrg[i] = analogRead(pinNumP);
       }
@@ -174,5 +174,5 @@ float computeAvg(int *myArrg)
       ++i;
       delay(sampleInterval);
   }
-    
     }
+    
